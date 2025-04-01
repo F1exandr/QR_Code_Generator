@@ -9,11 +9,17 @@
 <body>
     <div class="container">
         <h1>QR Code Generator</h1>
+        {% if username %}
+            <p>Welcome, {{ username }}!</p>
+            <a href="/logout/"><button>Quit</button></a>
+        {% else %}
+            <p>Please <a href="/login/">login</a> or <a href="/register/">register</a>.</p>
+        {% endif %}
         <form id="qr-form">
             <input type="text" name="text" placeholder="Enter text or URL" required>
             <button type="submit">Generate</button>
         </form>
-        <a href="/download/">
+        <a id="download-link" href="/static/qr.png" download>
             <button>Download</button>
         </a>
         <img id="qr-image" src="/static/qr.png" alt="QR Code">
@@ -21,14 +27,19 @@
 
     <script>
         document.getElementById('qr-form').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent form from submitting the traditional way
+            event.preventDefault();
             const formData = new FormData(this);
             const response = await fetch('/generate/', {
                 method: 'POST',
                 body: formData
             });
             if (response.ok) {
-                location.reload(); // Reload the page after successful QR code generation
+                const data = await response.json();
+                const qrPath = '/' + data.qr_path + '?t=' + new Date().getTime();
+                document.getElementById('qr-image').src = qrPath;
+                document.getElementById('download-link').href = qrPath;
+            } else {
+                console.error('Failed to generate QR code');
             }
         });
     </script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        <h2>Welcome, {{ user.username }}</h2> <!-- Display username -->
+        <h3>Your QR Codes:</h3>
+        <ul>
+            {% for qr in qr_codes %}
+                <li>
+                    <img src="/{{ qr.image_path }}" alt="QR Code">
+                    <p>{{ qr.data }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -5,13 +5,18 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
 }
 
 .container {
     text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -35,4 +40,20 @@ button:hover {
 
 input::placeholder {
     color: #ccc;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+img {
+    max-width: 200px; /* Increase this value to make the QR code larger */
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
